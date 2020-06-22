@@ -462,9 +462,9 @@ if __name__ == "__main__":
         n_classes = int(sys.argv[1])
         weightfile = sys.argv[2]
         imgfile = sys.argv[3]
-        height = sys.argv[4]
+        height =  int(sys.argv[4])
         width = int(sys.argv[5])
-        namesfile = int(sys.argv[6])
+        namesfile = sys.argv[6]
     else:
         print('Usage: ')
         print('  python models.py num_classes weightfile imgfile namefile')
@@ -494,6 +494,7 @@ if __name__ == "__main__":
     for i in range(2):  # This 'for' loop is for speed check
                         # Because the first iteration is usually longer
         boxes = do_detect(model, sized, 0.4, 0.6, use_cuda)
+        print('boxes', boxes)
 
     if namesfile == None:
         if n_classes == 20:
@@ -502,6 +503,5 @@ if __name__ == "__main__":
             namesfile = 'data/coco.names'
         else:
             print("please give namefile")
-
     class_names = load_class_names(namesfile)
     plot_boxes_cv2(img, boxes[0], 'predictions.jpg', class_names)

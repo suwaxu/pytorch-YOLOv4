@@ -244,6 +244,7 @@ def collate(batch):
 
 
 def train(model, device, config, epochs=5, batch_size=1, save_cp=True, log_step=20, img_scale=0.5):
+    print('config.train_label', config.train_label)
     train_dataset = Yolo_dataset(config.train_label, config)
     val_dataset = Yolo_dataset(config.val_label, config)
 
@@ -358,6 +359,7 @@ def train(model, device, config, epochs=5, batch_size=1, save_cp=True, log_step=
                     logging.info('Created checkpoint directory')
                 except OSError:
                     pass
+                #if epoch%50 == 0:
                 torch.save(model.state_dict(), os.path.join(config.checkpoints, f'Yolov4_epoch{epoch + 1}.pth'))
                 logging.info(f'Checkpoint {epoch + 1} saved !')
 
@@ -425,11 +427,15 @@ def init_logger(log_file=None, log_dir=None, log_level=logging.INFO, mode='w', s
 
 
 if __name__ == "__main__":
+    print('torch.cuda.is_available', torch.cuda.is_available())
     logging = init_logger(log_dir='log')
     cfg = get_args(**Cfg)
+    print('cfg', cfg)
     os.environ["CUDA_VISIBLE_DEVICES"] = cfg.gpu
+    print('torch.cuda.is_available', torch.cuda.is_available())
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     logging.info(f'Using device {device}')
+
 
     model = Yolov4(cfg.pretrained,n_classes=cfg.classes)
 

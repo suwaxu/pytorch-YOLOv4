@@ -16,9 +16,9 @@ from tqdm import tqdm
 import os
 
 """hyper parameters"""
-json_file_path = 'E:/Dataset/coco2017/annotations_trainval2017/annotations/instances_val2017.json'
-images_dir_path = 'mscoco2017/train2017/'
-output_path = '../data/val.txt'
+json_file_path = '/home/ubuntu/coco_images_all/coco_oxford_openimage_pet_person_train.json'
+images_dir_path = '/home/ubuntu/coco_images_all/coco_oxford_openimage_pet_person_train'
+output_path = '/home/ubuntu/YOLO4/pytorch-YOLOv4/data/coco_oxford_openimage/train.txt'
 
 """load json file"""
 name_box_id = defaultdict(list)
